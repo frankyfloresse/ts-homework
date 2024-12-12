@@ -12,34 +12,68 @@
 //     color:'', // 'red','black'
 // }
 
-let suits: string[] = ['spade', 'diamond', 'heart', 'clubs'];
-let values: string[] = ['6', '7', '8', '9', '10', 'ace', 'jack', 'queen', 'king'];
+enum Suit {
+    spade = 'spade',
+    diamond = 'diamond',
+    heart = 'heart',
+    clubs = 'clubs'
+}
+
+enum CardColor {
+    red = 'red',
+    black = 'black'
+}
+
+enum CardValue {
+    six = '6',
+    seven = '7',
+    eight = '8',
+    nine = '9',
+    ten = '10',
+    ace = 'ace',
+    jack = 'jack',
+    queen = 'queen',
+    king = 'king'
+}
+
+let suits: Suit[] = [Suit.spade, Suit.clubs, Suit.diamond, Suit.heart];
+let values: CardValue[] = [
+    CardValue.six,
+    CardValue.seven,
+    CardValue.eight,
+    CardValue.nine,
+    CardValue.ten,
+    CardValue.ace,
+    CardValue.jack,
+    CardValue.queen,
+    CardValue.king
+];
 
 class Card {
-    constructor(public cardSuit: string, public value: string, public color: string) {}
+    constructor(public cardSuit: Suit, public value: CardValue, public color: CardColor) {}
 }
 
 const deck: Card[] = [];
 
 for (const cardSuit of suits) {
     for (const value of values) {
-        deck.push(new Card(cardSuit, value, cardSuit === 'diamond' || cardSuit === 'heart' ? 'red' : 'black'))
+        deck.push(new Card(cardSuit, value, cardSuit === Suit.diamond || cardSuit === Suit.heart ? CardColor.red : CardColor.black))
     }
 }
 
-let spadeAce: Card = deck.find((card: Card) => card.cardSuit === 'spade' && card.value === 'ace');
+let spadeAce: Card = deck.find((card: Card) => card.cardSuit === Suit.spade && card.value === CardValue.ace);
 console.log(spadeAce);
 
-let cardsWithSix: Card[] = deck.filter((card: Card) => card.value === '6');
+let cardsWithSix: Card[] = deck.filter((card: Card) => card.value === CardValue.six);
 console.log(cardsWithSix);
 
-let redCards: Card[] = deck.filter((card: Card) => card.color === 'red');
+let redCards: Card[] = deck.filter((card: Card) => card.color === CardColor.red);
 console.log(redCards);
 
-let diamondCards: Card[] = deck.filter((card: Card) => card.cardSuit === 'diamond');
+let diamondCards: Card[] = deck.filter((card: Card) => card.cardSuit === Suit.diamond);
 console.log(diamondCards);
 
-let clubsCads: Card[] = deck.filter((card: Card) => card.cardSuit === 'clubs' && ['10', 'jack', 'queen', 'king', 'ace'].includes(card.value));
+let clubsCads: Card[] = deck.filter((card: Card) => card.cardSuit === Suit.clubs && [CardValue.ten, CardValue.jack, CardValue.queen, CardValue.king, CardValue.ace].includes(card.value));
 console.log(clubsCads);
 
 
